@@ -1,27 +1,20 @@
 package com.nobrand.blogapi.request;
 
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+@Setter
+@Getter
 @ToString
 public class PostCreate {
 
-    public String title;
-    public String content;
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
+    @NotBlank(message = "must not be blank")
+    private String title;
+    @NotNull(message = "must not be null")
+    private String content;
 
 }

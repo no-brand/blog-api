@@ -27,7 +27,7 @@ class PostControllerTest {
                         .param("content", "APPLICATION_FORM_URLENCODED")
                 )
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string("ModelAttribute"))
+                .andExpect(MockMvcResultMatchers.content().string("{}"))
                 .andDo(MockMvcResultHandlers.print());
     }
 
@@ -41,7 +41,21 @@ class PostControllerTest {
                         .content("{\"title\": \"title\", \"content\": \"APPLICATION_JSON\"}")
                 )
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string("RequestBody"))
+                .andExpect(MockMvcResultMatchers.content().string("{}"))
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    @DisplayName("POST /v2/post : validation")
+    public void postValidation() throws Exception {
+        this.mockMvc
+                .perform(MockMvcRequestBuilders
+                        .post("/v2/post")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"title\": null, \"content\": \"APPLICATION_JSON\"}")
+                )
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().string("{\"title\":\"must not be blank\"}"))
                 .andDo(MockMvcResultHandlers.print());
     }
 
