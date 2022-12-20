@@ -1,7 +1,10 @@
 package com.nobrand.blogapi.domain;
 
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
+@NoArgsConstructor
 @Entity
 public class Post {
 
@@ -14,4 +17,8 @@ public class Post {
     @Lob
     private String content;
 
+    public Post(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
 }
